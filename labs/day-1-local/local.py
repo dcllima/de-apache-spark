@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # batching application running locally
 # import libraries
 from os.path import abspath
@@ -18,14 +19,14 @@ if __name__ == '__main__':
     print(SparkConf().getAll())
 
     # set log level
-    spark.sparkContext.setLogLevel("INFO")
+    spark.sparkContext.setLogLevel("ERROR")
 
     # read movie json
     df_movies = spark.read \
         .format("json") \
         .option("inferSchema", "true") \
         .option("header", "true") \
-        .json("/Users/mateusoliveira/mateus/DataEngineeringWork/OwsHQ/Training/apache-spark-labs/files/landing/movies/*.json")
+        .json("C:/Votorantim/spark/curso/de-apache-spark/files/landing-zone/movies/*.json")
 
 
     # read user json
@@ -33,7 +34,7 @@ if __name__ == '__main__':
         .format("json") \
         .option("inferSchema", "true") \
         .option("header", "true") \
-        .json("/Users/mateusoliveira/mateus/DataEngineeringWork/OwsHQ/Training/apache-spark-labs/files/landing/ratings/*.json")
+        .json("C:/Votorantim/spark/curso/de-apache-spark/files/landing-zone/ratings/*.json")
 
     # print schema
     df_movies.printSchema()
@@ -71,7 +72,7 @@ if __name__ == '__main__':
     df_join.show()
 
     # write data in parquet files
-    df_join.write.mode("overwrite").format("parquet").save("/Users/mateusoliveira/mateus/DataEngineeringWork/OwsHQ/Training/apache-spark-labs/files/processing/delta-join/")
+    df_join.write.mode("overwrite").format("parquet").save("C:/Votorantim/spark/curso/de-apache-spark/files/processing/delta-join/")
 
     # stop spark session
     spark.stop()
